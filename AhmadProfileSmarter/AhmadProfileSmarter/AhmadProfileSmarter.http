@@ -1,0 +1,6 @@
+@AhmadProfileSmarter_HostAddress = http://localhost:5228
+
+GET {{AhmadProfileSmarter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

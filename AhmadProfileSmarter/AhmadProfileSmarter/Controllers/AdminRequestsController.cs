@@ -1,0 +1,53 @@
+﻿using AhmadDAL.Models.AdminRequests;
+using AhmadService.dto.AdminRequests;
+using AhmadService.Services.AdminRequests;
+using AhmadService.Services.Dashboard;
+using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace AhmadAPI.Controllers
+{
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AdminRequestsController : ControllerBase
+    {
+
+        public readonly AdminRequestsService _service;
+
+        public AdminRequestsController(AdminRequestsService service)
+        {
+            _service = service;
+        }
+
+        [HttpPost("CreateRequest")]
+        public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto dto)
+        {
+            
+
+            var result = await _service.CreateRequest(dto);
+
+            if(result==null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetAdminRequestonID/{id}")]
+        public async Task<IActionResult> GetAdminRequestonID(int id)
+        {
+            var result = await _service.GetAdminRequestonID(id);
+
+            if(result==null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+    }
+}

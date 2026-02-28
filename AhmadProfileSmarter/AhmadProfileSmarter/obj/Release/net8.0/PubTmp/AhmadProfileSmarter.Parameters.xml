@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="ahmabduad-001-site1" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Ahmad\ Abdullah\\Desktop\\AhmadProfile\\AhmadProfileSmarter\\AhmadProfileSmarter\\AhmadProfileSmarter\\obj\\Release\\net8\.0\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="AhmadDAL.Data.AppDbContext" description="" value="Data Source=SQL1001.site4now.net;Initial Catalog=db_ac5d52_ahmabduad;User Id=db_ac5d52_ahmabduad_admin;Password=Mousespeaker1234;Encrypt=True;TrustServerCertificate=True;" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Ahmad\ Abdullah\\Desktop\\AhmadProfile\\AhmadProfileSmarter\\AhmadProfileSmarter\\AhmadProfileSmarter\\obj\\Release\\net8\.0\\PubTmp\\EFSQLScripts\\AhmadDAL\.Data\.AppDbContext\.sql$" />
+  </parameter>
+</parameters>

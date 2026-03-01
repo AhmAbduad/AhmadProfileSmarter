@@ -18,7 +18,7 @@ namespace AhmadService.Services.ReportBug
 
         public async Task<bool> SubmitReportbug(ReportbugDto reportbugDto)
         {
-            var user = await repository.SubmitReportbug(reportbugDto.title, reportbugDto.description,reportbugDto.attachment);
+            var user = await repository.SubmitReportbug(reportbugDto.title, reportbugDto.description,reportbugDto.attachment,reportbugDto.UserId);
             return user != false;
         }
 

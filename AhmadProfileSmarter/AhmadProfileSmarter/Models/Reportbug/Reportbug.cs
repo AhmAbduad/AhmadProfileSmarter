@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AhmadDAL.Models.Credentials;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AhmadDAL.Models.Reportbug
@@ -19,5 +20,14 @@ namespace AhmadDAL.Models.Reportbug
 
         //[Required]
         public byte[]? attachment { get; set; }
+
+
+        [Required]
+        public int UserId { get; set; }
+
+
+
+        [ForeignKey(nameof(UserId))]
+        public User User { get; set; }
     }
 }

@@ -160,6 +160,13 @@ namespace AhmadDAL.Data
                 .WithMany(u=>u.AdminRequests)
                 .HasForeignKey(mp=>mp.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Reportbug>()
+                .HasOne(mp => mp.User)
+                .WithMany(u => u.Reportbug)
+                .HasForeignKey(mp => mp.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AhmadDAL.DataAccessLayer.ReportBug
             _context = context;
         }
 
-        public async Task<bool> SubmitReportbug(string Title,string Description, IFormFile fileimage)
+        public async Task<bool> SubmitReportbug(string Title,string Description, IFormFile fileimage,int UserId)
         {
            byte[]? fileBytes = null;
 
@@ -26,6 +26,7 @@ namespace AhmadDAL.DataAccessLayer.ReportBug
 
             var bug = new Reportbug
             {
+                UserId= UserId,
                 title = Title,
                 description = Description,
                 attachment = fileBytes

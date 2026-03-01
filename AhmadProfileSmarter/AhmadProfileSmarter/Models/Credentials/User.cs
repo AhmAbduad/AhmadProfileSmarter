@@ -52,5 +52,7 @@ namespace AhmadDAL.Models.Credentials
 
         public ICollection<AhmadDAL.Models.AdminRequests.AdminRequests> AdminRequests { get; set; } = new List<AhmadDAL.Models.AdminRequests.AdminRequests>();
 
+        public ICollection<AhmadDAL.Models.Reportbug.Reportbug> Reportbug { get; set; } = new List<AhmadDAL.Models.Reportbug.Reportbug>();
+
     }
 }

@@ -25,7 +25,7 @@ namespace AhmadAPI.Controllers
 
             if (notifications == null || notifications.Count == 0)
             {
-                return NotFound("No notifications found for this user.");
+                return Ok("No notifications found for this user.");
             }
 
             return Ok(notifications);

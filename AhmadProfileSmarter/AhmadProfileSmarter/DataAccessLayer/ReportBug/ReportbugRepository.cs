@@ -1,10 +1,11 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Reportbug;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.ReportBug
 {
-    public class ReportbugRepository
+    public class ReportbugRepository:IReportBug
     {
         private readonly AppDbContext _context;
 

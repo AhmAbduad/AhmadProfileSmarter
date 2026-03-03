@@ -1,5 +1,6 @@
 ﻿using AhmadDAL.DataAccessLayer.Credentials;
 using AhmadDAL.Models.Credentials;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Credentials;
 using AhmadService.dto.LoginResponse;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +13,10 @@ namespace AhmadService.Services.Credentials
 {
     public class LoginService
     {
-        private readonly LoginRepository _loginRepository;
+        private readonly ILogin _loginRepository;
         private readonly IConfiguration _configuration;
 
-        public LoginService(LoginRepository loginRepository, IConfiguration configuration)
+        public LoginService(ILogin loginRepository, IConfiguration configuration)
         {
             _loginRepository = loginRepository;
             _configuration = configuration;

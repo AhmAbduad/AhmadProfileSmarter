@@ -1,14 +1,15 @@
 ﻿using AhmadDAL.DataAccessLayer.Employees;
 using AhmadDAL.DataAccessLayer.Profile;
 using AhmadDAL.Models.Notifications;
+using AhmadProfileSmarter.Interfaces;
 
 namespace AhmadService.Services.Profile
 {
     public class ProfileService
     {
-        private readonly ProfileRepository repository;
+        private readonly IProfile repository;
 
-        public ProfileService(ProfileRepository repository)
+        public ProfileService(IProfile repository)
         {
             this.repository = repository;
         }

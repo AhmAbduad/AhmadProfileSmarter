@@ -1,6 +1,7 @@
 ﻿using AhmadDAL.DataAccessLayer.Employees;
 using AhmadDAL.DataAccessLayer.Tasks;
 using AhmadDAL.Models.Employees;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Employee;
 using AhmadService.dto.Participant;
 using AhmadService.dto.User;
@@ -9,9 +10,9 @@ namespace AhmadService.Services.Employees
 {
     public class EmployeesService
     {
-        private readonly EmployeesRepository repository;
+        private readonly IEmployee repository;
 
-        public EmployeesService(EmployeesRepository repository)
+        public EmployeesService(IEmployee repository)
         {
 
             this.repository = repository;

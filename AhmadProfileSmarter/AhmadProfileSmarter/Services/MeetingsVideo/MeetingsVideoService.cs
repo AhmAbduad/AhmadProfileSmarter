@@ -2,15 +2,16 @@
 using AhmadDAL.DataAccessLayer.Profile;
 using AhmadDAL.Models.Credentials;
 using AhmadDAL.Models.Meetings;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.MeetingsVideo;
 
 namespace AhmadService.Services.MeetingsVideo
 {
     public class MeetingsVideoService
     {
-        private readonly MeetingsVideoRepository repository;
+        private readonly IMeetingsVideo repository;
 
-        public MeetingsVideoService(MeetingsVideoRepository repository)
+        public MeetingsVideoService(IMeetingsVideo repository)
         {
             this.repository = repository;
         }

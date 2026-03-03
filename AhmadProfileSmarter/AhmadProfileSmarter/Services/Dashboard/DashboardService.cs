@@ -2,14 +2,15 @@
 using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.Models.Activity;
 using AhmadDAL.Models.Meetings;
+using AhmadProfileSmarter.Interfaces;
 
 namespace AhmadService.Services.Dashboard
 {
     public class DashboardService
     {
-        private readonly DashboardRepository repository;
+        private readonly IDashboard repository;
 
-        public DashboardService(DashboardRepository repository)
+        public DashboardService(IDashboard repository)
         {
             this.repository = repository;
         }

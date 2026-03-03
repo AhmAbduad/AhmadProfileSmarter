@@ -1,12 +1,13 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Credentials;
 using AhmadDAL.Models.Notifications;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.Profile
 {
-    public class ProfileRepository
+    public class ProfileRepository:IProfile
     {
         private readonly AppDbContext _context;
 

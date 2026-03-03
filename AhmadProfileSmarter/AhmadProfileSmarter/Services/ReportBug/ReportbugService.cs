@@ -1,6 +1,7 @@
 ﻿using AhmadDAL.DataAccessLayer.Credentials;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.Models.Reportbug;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Credentials;
 using AhmadService.dto.Reportbug;
 
@@ -8,9 +9,9 @@ namespace AhmadService.Services.ReportBug
 {
     public class ReportbugService
     {
-        private readonly ReportbugRepository repository;
+        private readonly IReportBug repository;
 
-        public ReportbugService(ReportbugRepository repository)
+        public ReportbugService(IReportBug repository)
         {
 
             this.repository = repository;

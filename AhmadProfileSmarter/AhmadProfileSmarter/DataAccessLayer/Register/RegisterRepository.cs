@@ -1,11 +1,12 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Credentials;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.Register
 {
-    public class RegisterRepository
+    public class RegisterRepository:IRegister
     {
         private readonly AppDbContext _context;
 

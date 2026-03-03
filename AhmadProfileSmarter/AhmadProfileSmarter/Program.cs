@@ -10,6 +10,7 @@ using AhmadDAL.DataAccessLayer.Profile;
 using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.DataAccessLayer.Tasks;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.Services.AdminRequests;
 using AhmadService.Services.Chats;
 using AhmadService.Services.Credentials;
@@ -39,27 +40,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<ILogin,LoginRepository>();
 builder.Services.AddScoped<LoginService>();
-builder.Services.AddScoped<ReportbugRepository>();
+builder.Services.AddScoped<IReportBug,ReportbugRepository>();
 builder.Services.AddScoped<ReportbugService>();
-builder.Services.AddScoped<TasksRepository>();
+builder.Services.AddScoped<ITasks,TasksRepository>();
 builder.Services.AddScoped<TasksService>();
-builder.Services.AddScoped<EmployeesRepository>();
+builder.Services.AddScoped<IEmployee,EmployeesRepository>();
 builder.Services.AddScoped<EmployeesService>();
-builder.Services.AddScoped<DriveRepository>();
+builder.Services.AddScoped<IDrive,DriveRepository>();
 builder.Services.AddScoped<DriveService>();
-builder.Services.AddScoped<ChatsRepository>();
+builder.Services.AddScoped<IChats,ChatsRepository>();
 builder.Services.AddScoped<ChatsService>();
-builder.Services.AddScoped<ProfileRepository>();
+builder.Services.AddScoped<IProfile,ProfileRepository>();
 builder.Services.AddScoped<ProfileService>();
-builder.Services.AddScoped<MeetingsVideoRepository>();
+builder.Services.AddScoped<IMeetingsVideo,MeetingsVideoRepository>();
 builder.Services.AddScoped<MeetingsVideoService>();
-builder.Services.AddScoped<RegisterRepository>();
+builder.Services.AddScoped<IRegister,RegisterRepository>();
 builder.Services.AddScoped<RegisterService>();
-builder.Services.AddScoped<DashboardRepository>();
+builder.Services.AddScoped<IDashboard,DashboardRepository>();
 builder.Services.AddScoped<DashboardService>();
-builder.Services.AddScoped<AdminRequestsRepository>();
+builder.Services.AddScoped<IAdminRequests,AdminRequestsRepository>();
 builder.Services.AddScoped<AdminRequestsService>();
 
 

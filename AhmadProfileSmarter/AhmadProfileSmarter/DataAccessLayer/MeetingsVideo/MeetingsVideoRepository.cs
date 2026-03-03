@@ -1,12 +1,13 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Credentials;
 using AhmadDAL.Models.Meetings;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.MeetingsVideo
 {
-    public class MeetingsVideoRepository
+    public class MeetingsVideoRepository:IMeetingsVideo
     {
         private readonly AppDbContext _context;
 
@@ -57,12 +58,6 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
            
         public async Task<List<Meetings>> getAllMeetingsByUserId(int userid)
         {
-            //var meeting = await _context.Meetings
-            //    .Where(m => m.CreatedBy == userid && m.IsDeleted == false)
-            //    .OrderByDescending(m => m.StartTime)
-            //    .ToListAsync();
-
-            //return meeting;
 
 
             // Fetch meetings where the user is either the creator or a participant

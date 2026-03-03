@@ -5,6 +5,7 @@ using AhmadDAL.Models.Comments;
 using AhmadDAL.Models.Meetings;
 using AhmadDAL.Models.Reportbug;
 using AhmadDAL.Models.Status;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -13,7 +14,7 @@ using Microsoft.Identity.Client;
 
 namespace AhmadDAL.DataAccessLayer.Tasks
 {
-    public class TasksRepository
+    public class TasksRepository:ITasks
     {
         private readonly AppDbContext _context;
 

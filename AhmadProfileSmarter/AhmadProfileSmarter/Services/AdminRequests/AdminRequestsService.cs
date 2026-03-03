@@ -1,14 +1,15 @@
 ﻿using AhmadDAL.DataAccessLayer.AdminRequests;
 using AhmadDAL.DataAccessLayer.Dashboard;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.AdminRequests;
 
 namespace AhmadService.Services.AdminRequests
 {
     public class AdminRequestsService
     {
-        private readonly AdminRequestsRepository repository;
+        private readonly IAdminRequests repository;
 
-        public AdminRequestsService(AdminRequestsRepository repository)
+        public AdminRequestsService(IAdminRequests repository)
         {
             this.repository = repository;
         }

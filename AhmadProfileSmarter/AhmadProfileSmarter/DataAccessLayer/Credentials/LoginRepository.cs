@@ -1,12 +1,13 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Credentials;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.Credentials
 {
-    public class LoginRepository
+    public class LoginRepository : ILogin
     {
 
         private readonly AppDbContext _context;
@@ -15,20 +16,6 @@ namespace AhmadDAL.DataAccessLayer.Credentials
         {
             _context = context;
         }
-
-
-        //public async Task<List<User>> ValidateUserCredentials(string email, string password)
-        //{
-        //    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        //    if (user == null)
-        //        return 
-
-        //    // Compare password (for now, plain text)
-        //    if (user.Password != password)
-        //        return false;
-
-        //    return true;
-        //}
 
         public async Task<User?> ValidateUserCredentials(string email, string password)
         {

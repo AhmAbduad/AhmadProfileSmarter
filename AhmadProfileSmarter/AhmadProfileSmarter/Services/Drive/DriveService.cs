@@ -1,15 +1,16 @@
 ﻿using AhmadDAL.DataAccessLayer.Drive;
 using AhmadDAL.DataAccessLayer.Employees;
 using AhmadDAL.Models.Participants;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.ParticipantFile;
 
 namespace AhmadService.Services.Drive
 {
     public class DriveService
     {
-        private readonly DriveRepository repository;
+        private readonly IDrive repository;
 
-        public DriveService(DriveRepository repository)
+        public DriveService(IDrive repository)
         {
 
             this.repository = repository;

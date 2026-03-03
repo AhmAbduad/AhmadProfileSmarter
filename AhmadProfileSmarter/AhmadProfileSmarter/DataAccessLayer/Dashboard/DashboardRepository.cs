@@ -1,11 +1,12 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Activity;
 using AhmadDAL.Models.Meetings;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.Dashboard
 {
-    public class DashboardRepository
+    public class DashboardRepository:IDashboard
     {
         private readonly AppDbContext _context;
 

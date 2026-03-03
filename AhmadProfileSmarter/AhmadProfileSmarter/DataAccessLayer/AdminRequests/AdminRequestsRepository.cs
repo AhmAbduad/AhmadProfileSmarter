@@ -1,9 +1,10 @@
 ﻿using AhmadDAL.Data;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.AdminRequests
 {
-    public class AdminRequestsRepository
+    public class AdminRequestsRepository : IAdminRequests
     {
         private readonly AppDbContext _context;
 

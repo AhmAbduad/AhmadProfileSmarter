@@ -2,11 +2,12 @@
 using AhmadDAL.Models.EmployeeFiles;
 using AhmadDAL.Models.ParticipantFiles;
 using AhmadDAL.Models.PersonalFiles;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.DataAccessLayer.Drive
 {
-    public class DriveRepository
+    public class DriveRepository:IDrive
     {
 
         private readonly AppDbContext _context;

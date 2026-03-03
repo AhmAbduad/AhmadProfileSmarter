@@ -4,6 +4,7 @@ using AhmadDAL.Models.Attachment;
 using AhmadDAL.Models.Comments;
 using AhmadDAL.Models.Meetings;
 using AhmadDAL.Models.Status;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -12,9 +13,9 @@ namespace AhmadService.Services.Tasks
 {
     public class TasksService
     {
-        private readonly TasksRepository repository;
+        private readonly ITasks repository;
 
-        public TasksService(TasksRepository repository)
+        public TasksService(ITasks repository)
         {
 
             this.repository = repository;

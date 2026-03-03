@@ -1,14 +1,15 @@
 ﻿using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.Models.Credentials;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Register;
 
 namespace AhmadService.Services.Register
 {
     public class RegisterService
     {
-        private readonly RegisterRepository repository;
+        private readonly IRegister repository;
 
-        public RegisterService(RegisterRepository repository)
+        public RegisterService(IRegister repository)
         {
             this.repository = repository;
             

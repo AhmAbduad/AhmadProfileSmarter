@@ -3,6 +3,7 @@ using AhmadDAL.DataAccessLayer.Drive;
 using AhmadDAL.Models.AIChatMessage;
 using AhmadDAL.Models.Chats;
 using AhmadDAL.Models.Credentials;
+using AhmadProfileSmarter.Interfaces;
 using AhmadService.dto.Chats;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,10 @@ namespace AhmadService.Services.Chats
 {
     public class ChatsService
     {
-        private readonly ChatsRepository repository;
+        private readonly IChats repository;
 
-        public ChatsService(ChatsRepository repository)
+        public ChatsService(IChats repository)
         {
-
             this.repository = repository;
         }
 

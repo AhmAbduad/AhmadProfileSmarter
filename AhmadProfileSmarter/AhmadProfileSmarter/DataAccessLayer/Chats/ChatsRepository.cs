@@ -3,6 +3,7 @@ using AhmadDAL.Models.AIChatMessage;
 using AhmadDAL.Models.Chats;
 using AhmadDAL.Models.Credentials;
 using AhmadDAL.Models.HuggingFaceResponse;
+using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -11,7 +12,7 @@ using System.Text.Json;
 
 namespace AhmadDAL.DataAccessLayer.Chats
 {
-    public class ChatsRepository
+    public class ChatsRepository : IChats
     {
 
         private readonly HttpClient _http = new HttpClient();
@@ -22,8 +23,6 @@ namespace AhmadDAL.DataAccessLayer.Chats
         public ChatsRepository(AppDbContext context)
         {
             _context = context;
-
-           
         }
 
         public async Task<List<User>> GetAllUsers()

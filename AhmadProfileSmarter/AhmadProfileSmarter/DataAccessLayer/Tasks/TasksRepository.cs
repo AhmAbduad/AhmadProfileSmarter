@@ -6,6 +6,7 @@ using AhmadDAL.Models.Meetings;
 using AhmadDAL.Models.Reportbug;
 using AhmadDAL.Models.Status;
 using AhmadProfileSmarter.Interfaces;
+using AhmadProfileSmarter.UnitofWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -14,13 +15,13 @@ using Microsoft.Identity.Client;
 
 namespace AhmadDAL.DataAccessLayer.Tasks
 {
-    public class TasksRepository:ITasks
+    public class TasksRepository :ITasks
     {
         private readonly AppDbContext _context;
 
         public TasksRepository(AppDbContext context)
         {
-            _context = context;
+              _context= context;
         }
 
         public async Task<object> GetAllTasks()
@@ -72,7 +73,6 @@ namespace AhmadDAL.DataAccessLayer.Tasks
             };
 
             await _context.Tasks.AddAsync(TaskDTO);
-            await _context.SaveChangesAsync();
 
             return true;
         }
@@ -163,7 +163,6 @@ namespace AhmadDAL.DataAccessLayer.Tasks
             };
             
             await _context.Attachments.AddAsync(attachment);
-            await _context.SaveChangesAsync();
 
             return true;
         }
@@ -203,7 +202,7 @@ namespace AhmadDAL.DataAccessLayer.Tasks
             };
 
             await _context.Comments.AddAsync(savingcomment);
-            await _context.SaveChangesAsync();
+         
 
             return true;
         }
@@ -230,9 +229,6 @@ namespace AhmadDAL.DataAccessLayer.Tasks
 
             // 3️⃣ Update task status
             task.StatusID = completedStatus.StatusID;
-
-            // 4️⃣ Save changes
-            await _context.SaveChangesAsync();
 
             return true;
         }

@@ -51,8 +51,7 @@ namespace AhmadDAL.DataAccessLayer.Chats
             // 3️⃣ Add to Database
             await _context.Chats.AddAsync(chat);
 
-            // 4️⃣ Save Changes
-            await _context.SaveChangesAsync();
+            
 
             // 5️⃣ Return Created Chat
             return chat;

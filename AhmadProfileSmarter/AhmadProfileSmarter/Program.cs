@@ -11,6 +11,7 @@ using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.DataAccessLayer.Tasks;
 using AhmadProfileSmarter.Interfaces;
+using AhmadProfileSmarter.UnitofWork;
 using AhmadService.Services.AdminRequests;
 using AhmadService.Services.Chats;
 using AhmadService.Services.Credentials;
@@ -63,7 +64,7 @@ builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<IAdminRequests,AdminRequestsRepository>();
 builder.Services.AddScoped<AdminRequestsService>();
 
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddSwaggerGen(c =>

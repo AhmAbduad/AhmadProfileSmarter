@@ -37,7 +37,9 @@ namespace AhmadDAL.DataAccessLayer.Drive
             };
 
             await _context.ParticipantFiles.AddAsync(file);
-            return await _context.SaveChangesAsync() > 0;
+            //return await _context.SaveChangesAsync() > 0;
+
+            return true;
         }
 
         public async Task<List<PersonalFiles>> GetAllPersonalFiles()
@@ -60,7 +62,9 @@ namespace AhmadDAL.DataAccessLayer.Drive
             };
 
             await _context.PersonalFiles.AddAsync(file);
-            return await _context.SaveChangesAsync() > 0;
+            //return await _context.SaveChangesAsync() > 0;
+
+            return true;
         }
 
 
@@ -84,7 +88,8 @@ namespace AhmadDAL.DataAccessLayer.Drive
             };
 
             await _context.EmployeeFiles.AddAsync(file);
-            return await _context.SaveChangesAsync() > 0;
+            //return await _context.SaveChangesAsync() > 0;
+            return true;
         }
     }
 }

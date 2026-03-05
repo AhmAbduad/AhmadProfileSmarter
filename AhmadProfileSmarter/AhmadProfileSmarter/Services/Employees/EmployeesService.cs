@@ -2,6 +2,7 @@
 using AhmadDAL.DataAccessLayer.Tasks;
 using AhmadDAL.Models.Employees;
 using AhmadProfileSmarter.Interfaces;
+using AhmadProfileSmarter.UnitofWork;
 using AhmadService.dto.Employee;
 using AhmadService.dto.Participant;
 using AhmadService.dto.User;
@@ -10,41 +11,59 @@ namespace AhmadService.Services.Employees
 {
     public class EmployeesService
     {
-        private readonly IEmployee repository;
+        //private readonly IEmployee repository;
+        // private readonly IDrive repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeesService(IEmployee repository)
+        public EmployeesService(IUnitOfWork unitOfWork)
         {
-
-            this.repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<List<EmployeeDto>> GetAllEmployees()
         {
-            var employees = await repository.GetAllEmployees();
+            // 🔹 Begin transaction (optional for read, but consistent)
+            await _unitOfWork.BeginTransactionAsync();
 
-            var result = employees.Select(e => new EmployeeDto
+            try
             {
-                EmployeeID = e.EmployeeID,
-                Designation = e.Designation,
-                Salary = e.Salary,
-                JoinDate = e.JoinDate,
+                // 🔹 Call repository via UnitOfWork
+                var employees = await _unitOfWork.Employee.GetAllEmployees();
 
-                User = new UserDto
+                // 🔹 Commit transaction (even for read)
+                await _unitOfWork.CommitTransactionAsync();
+
+                // 🔹 Map to DTO
+                var result = employees.Select(e => new EmployeeDto
                 {
-                    UserId = e.User!.UserId,
-                    UserName = e.User.UserName,
-                    Email = e.User.Email
-                },
+                    EmployeeID = e.EmployeeID,
+                    Designation = e.Designation,
+                    Salary = e.Salary,
+                    JoinDate = e.JoinDate,
 
-                Participants = e.Participants.Select(p => new ParticipantDto
-                {
-                    ParticipantID = p.ParticipantID,
-                    ParticipantName = p.ParticipantName
-                }).ToList()
+                    User = new UserDto
+                    {
+                        UserId = e.User!.UserId,
+                        UserName = e.User.UserName,
+                        Email = e.User.Email
+                    },
 
-            }).ToList();
+                    Participants = e.Participants.Select(p => new ParticipantDto
+                    {
+                        ParticipantID = p.ParticipantID,
+                        ParticipantName = p.ParticipantName
+                    }).ToList()
 
-            return result;
+                }).ToList();
+
+                return result;
+            }
+            catch
+            {
+                // 🔹 Rollback on error
+                await _unitOfWork.RollbackTransactionAsync();
+                throw;
+            }
         }
     }
 }

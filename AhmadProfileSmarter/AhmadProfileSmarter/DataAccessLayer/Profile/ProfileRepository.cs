@@ -36,7 +36,7 @@ namespace AhmadDAL.DataAccessLayer.Profile
 
                 notification.IsRead = true;
 
-                await _context.SaveChangesAsync();
+               
 
                 return true;
             }
@@ -63,7 +63,7 @@ namespace AhmadDAL.DataAccessLayer.Profile
                 // 🔐 Hash new password
                 user.PasswordHash = hasher.HashPassword(user, pass);
 
-                await _context.SaveChangesAsync();
+             
 
                 return true;
             }

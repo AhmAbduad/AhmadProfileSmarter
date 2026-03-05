@@ -39,7 +39,7 @@ namespace AhmadDAL.DataAccessLayer.Register
 
             // 🔹 Save to database
             await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
             return true;
         }

@@ -36,7 +36,7 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
             };
 
             _context.Meetings.Add(newMeeting);
-            await _context.SaveChangesAsync();
+           
 
             // Add participants
             foreach (var userId in users)
@@ -50,8 +50,6 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
                 };
                 _context.MeetingParticipants.Add(participant);
             }
-
-            await _context.SaveChangesAsync();
 
             return newMeeting;
         }
@@ -83,9 +81,7 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
 
             meeting.IsDeleted = true;
             meeting.UpdatedAt = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
-
+            
             return meeting;
         }
     }

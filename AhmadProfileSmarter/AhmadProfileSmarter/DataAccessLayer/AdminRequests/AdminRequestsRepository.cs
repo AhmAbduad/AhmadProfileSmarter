@@ -12,7 +12,7 @@ namespace AhmadDAL.DataAccessLayer.AdminRequests
         {
             _context = context;
         }
-
+        
         public async Task<AhmadDAL.Models.AdminRequests.AdminRequests> CreateRequest(int UserId, string RequestType, string Title, string Description, string Status, string AdminRemarks)
         {
             var request = new AhmadDAL.Models.AdminRequests.AdminRequests
@@ -27,7 +27,6 @@ namespace AhmadDAL.DataAccessLayer.AdminRequests
             };
 
             _context.AdminRequests.Add(request);
-            await _context.SaveChangesAsync();
 
             return request;
         }

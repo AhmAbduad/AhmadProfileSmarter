@@ -1,6 +1,7 @@
 ﻿using AhmadDAL.DataAccessLayer.Credentials;
 using AhmadDAL.Models.Credentials;
 using AhmadProfileSmarter.Interfaces;
+using AhmadProfileSmarter.UnitofWork;
 using AhmadService.dto.Credentials;
 using AhmadService.dto.LoginResponse;
 using Microsoft.Extensions.Configuration;
@@ -13,35 +14,69 @@ namespace AhmadService.Services.Credentials
 {
     public class LoginService
     {
-        private readonly ILogin _loginRepository;
+       
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
 
-        public LoginService(ILogin loginRepository, IConfiguration configuration)
+        public LoginService(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
-            _loginRepository = loginRepository;
+            _unitOfWork = unitOfWork;
             _configuration = configuration;
         }
+
 
         public async Task<LoginResponseDto?> ValidateUserCredential(LoginDto login)
         {
             //return await _loginRepository.ValidateUserCredentials(login.Email,login.Password);
 
 
-            var user = await _loginRepository
-                 .ValidateUserCredentials(login.Email, login.Password);
+            //var user = await _loginRepository
+            //     .ValidateUserCredentials(login.Email, login.Password);
 
-            if (user == null)
-                return null;
+            //if (user == null)
+            //    return null;
 
-            var token = GenerateJwtToken(user);
+            //var token = GenerateJwtToken(user);
 
-            return new LoginResponseDto
+            //return new LoginResponseDto
+            //{
+            //    UserId = user.UserId,
+            //    UserName = user.UserName,
+            //    Email = user.Email,
+            //    Token = token
+            //};
+
+
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
             {
-                UserId = user.UserId,
-                UserName = user.UserName,
-                Email = user.Email,
-                Token = token
-            };
+                var user = await _unitOfWork.Login
+                    .ValidateUserCredentials(login.Email, login.Password);
+
+                if (user == null)
+                {
+                    await _unitOfWork.RollbackTransactionAsync();
+                    return null;
+                }
+
+                var token = GenerateJwtToken(user);
+
+                await _unitOfWork.CommitTransactionAsync();
+
+                return new LoginResponseDto
+                {
+                    UserId = user.UserId,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Token = token
+                };
+            }
+            catch
+            {
+                await _unitOfWork.RollbackTransactionAsync();
+                throw;
+            }
         }
 
         public string GenerateJwtToken(User user)

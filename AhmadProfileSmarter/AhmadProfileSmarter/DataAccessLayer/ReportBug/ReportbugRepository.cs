@@ -34,7 +34,7 @@ namespace AhmadDAL.DataAccessLayer.ReportBug
             };
 
             await _context.Reportbugs.AddAsync(bug);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
             return true;
         }

@@ -11,6 +11,7 @@ using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.DataAccessLayer.Tasks;
 using AhmadProfileSmarter.Interfaces;
+using AhmadProfileSmarter.Middleware;
 using AhmadProfileSmarter.UnitofWork;
 using AhmadService.Services.AdminRequests;
 using AhmadService.Services.Chats;
@@ -133,6 +134,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+
+
+app.UseExceptionHandling();    // ✅ Use extension method
+app.UseRequestLogging();
+
+//app.UseMiddleware<RequestLoggingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

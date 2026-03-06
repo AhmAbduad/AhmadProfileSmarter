@@ -16,6 +16,7 @@ using AhmadDAL.Models.PersonalFiles;
 using AhmadDAL.Models.Reportbug;
 using AhmadDAL.Models.Status;
 using AhmadDAL.Models.Tasks;
+using AhmadProfileSmarter.Models.Roles;
 using Microsoft.EntityFrameworkCore;
 
 namespace AhmadDAL.Data
@@ -63,6 +64,8 @@ namespace AhmadDAL.Data
         public DbSet<AIChatMessage> AIChatMessages { get; set; }
 
         public DbSet<AdminRequests> AdminRequests { get; set; }
+
+        public DbSet<Roles> Roles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -165,6 +168,12 @@ namespace AhmadDAL.Data
                 .HasOne(mp => mp.User)
                 .WithMany(u => u.Reportbug)
                 .HasForeignKey(mp => mp.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasOne(mp => mp.Role)
+                .WithMany(u => u.Users)
+                .HasForeignKey(mp => mp.RoleID)
                 .OnDelete(DeleteBehavior.Cascade);
 
         }

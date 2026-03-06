@@ -17,7 +17,7 @@ namespace AhmadAPI.Controllers
         {
             _service = service;
         }
-
+        
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {

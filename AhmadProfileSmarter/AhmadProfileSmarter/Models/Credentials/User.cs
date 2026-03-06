@@ -4,6 +4,7 @@ using AhmadDAL.Models.Chats;
 using AhmadDAL.Models.Employees;
 using AhmadDAL.Models.Meetings;
 using AhmadDAL.Models.Notifications;
+using AhmadProfileSmarter.Models.Roles;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -29,7 +30,8 @@ namespace AhmadDAL.Models.Credentials
         [StringLength(100)]
         public string Email { get; set; } = null!;
 
-
+        [Required]
+        public int RoleID { get; set; }   // 🔑 Foreign Key
 
         public ICollection<Employees.Employee> Employees { get; set; } = new List<Employees.Employee>();
 
@@ -54,5 +56,10 @@ namespace AhmadDAL.Models.Credentials
 
         public ICollection<AhmadDAL.Models.Reportbug.Reportbug> Reportbug { get; set; } = new List<AhmadDAL.Models.Reportbug.Reportbug>();
 
+
+        [ForeignKey(nameof(RoleID))]
+        public Roles Role { get; set; } = null!;
+
+        
     }
 }

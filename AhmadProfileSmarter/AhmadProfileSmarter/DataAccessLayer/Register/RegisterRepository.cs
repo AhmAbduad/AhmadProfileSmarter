@@ -31,7 +31,8 @@ namespace AhmadDAL.DataAccessLayer.Register
             var newUser = new User
             {
                 UserName = UserName,
-                Email = Email
+                Email = Email,
+                RoleID=4
             };
 
             // 🔐 Hash password

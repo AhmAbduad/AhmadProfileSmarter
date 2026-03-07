@@ -16,7 +16,7 @@ namespace AhmadAPI.Controllers
             _LoginService = login;
         }
 
-
+        [AllowAnonymous]
         [HttpPost("CheckUser")]
         public async Task<IActionResult> CheckUser([FromBody] LoginDto loginDto)
         {

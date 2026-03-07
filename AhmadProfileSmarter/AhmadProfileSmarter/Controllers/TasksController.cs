@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TasksController : ControllerBase
@@ -23,6 +23,7 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllTasks")]
         public async Task<IActionResult> GetAllTasks()
         {
@@ -35,6 +36,7 @@ namespace AhmadAPI.Controllers
         }
 
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllStatus")]
         public async Task<IActionResult> GetAllStatus()
         {
@@ -48,6 +50,7 @@ namespace AhmadAPI.Controllers
             return Ok(status);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllAccounts")]
         public async Task<IActionResult> GetAllAccounts()
         {
@@ -61,6 +64,7 @@ namespace AhmadAPI.Controllers
             return Ok(accounts);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SubmitTask")]
         public async Task<bool> SubmitTask([FromBody] TasksDto taskdto)
         {
@@ -74,6 +78,7 @@ namespace AhmadAPI.Controllers
             return check;
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetTaskById/{id}")]
         public async Task<IActionResult> GetTaskById(int id)
         {
@@ -82,6 +87,7 @@ namespace AhmadAPI.Controllers
             return Ok(task);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SubmitAttachment")]
         public async Task<bool> SubmitAttachment([FromForm] AttachmentDto model)
         {
@@ -92,7 +98,7 @@ namespace AhmadAPI.Controllers
             return await _service.SubmitAttachment(model.TaskID, model.File);
         }
 
-        // 📌 List attachments
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAttachmentsByTaskId/{taskId}")]
         public async Task<IActionResult> GetAttachmentsByTaskId(int taskId)
         {
@@ -113,7 +119,7 @@ namespace AhmadAPI.Controllers
 
         }
 
-        // 📌 Get actual file
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAttachmentFile/{id}")]
         public async Task<IActionResult> GetAttachmentFile(int id)
         {
@@ -129,6 +135,7 @@ namespace AhmadAPI.Controllers
             );
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GettingComments/{id}")]
         public async Task<IActionResult> GettingComments(int id)
         {
@@ -137,6 +144,7 @@ namespace AhmadAPI.Controllers
             return Ok(comments);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SubmitComment")]
         public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto comment)
         {
@@ -152,6 +160,7 @@ namespace AhmadAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GettingActivity/{id}")]
         public async Task<IActionResult> GettingActivity(int id)
         {
@@ -159,6 +168,7 @@ namespace AhmadAPI.Controllers
             return Ok(activity);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("ApproveStatus/{id}")]
         public async Task<IActionResult> ApproveStatus(int id)
         {
@@ -170,6 +180,7 @@ namespace AhmadAPI.Controllers
             return Ok(true);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllMeetingsByTaskID/{id}")]
         public async Task<IActionResult> GetAllMeetingsByTaskID(int id)
         {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MeetingsVideoController : Controller
@@ -19,6 +19,8 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("AddMeeting")]
         public async Task<IActionResult> AddMeeting([FromBody] MeetingsVideoDto meeting)
         {
@@ -55,20 +57,10 @@ namespace AhmadAPI.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
-
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User")]
         [HttpGet("getAllMeetingsByUserId")]
         public async Task<IActionResult> getAllMeetingsByUserId(int userid)
         {
-            //var result = await _service.getAllMeetingsByUserId(userid);
-
-            //if (result == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return Ok(result);
-
-            // Get raw Meetings entities from service
             var meetings = await _service.getAllMeetingsByUserId(userid);
 
             if (meetings == null || !meetings.Any())
@@ -94,7 +86,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
-
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPut("EndMeeting/{id}")]
         public async Task<IActionResult> EndMeeting(int id)
         {

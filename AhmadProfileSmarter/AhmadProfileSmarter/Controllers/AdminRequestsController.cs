@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AdminRequestsController : ControllerBase
@@ -22,6 +22,7 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost("CreateRequest")]
         public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto dto)
         {
@@ -37,6 +38,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpGet("GetAdminRequestonID/{id}")]
         public async Task<IActionResult> GetAdminRequestonID(int id)
         {

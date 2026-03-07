@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DriveController : ControllerBase
@@ -21,17 +21,19 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllParticipantsFiles")]
         public async Task<IActionResult> GetAllParticipantsFiles()
         {
             var res = await _service.GetAllParticipantsFiles();
 
             if(res == null)
-                return NotFound();
+                return NotFound("No Participant Files found");
 
             return Ok(res);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SaveParticipantFile")]
         public async Task<IActionResult> SaveParticipantFile([FromForm] ParticipantFileDto model)
         {
@@ -56,17 +58,19 @@ namespace AhmadAPI.Controllers
             return BadRequest(false);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllPersonalFiles")]
         public async Task<IActionResult> GetAllPersonalFiles()
         {
             var res = await _service.GetAllPersonalFiles();
 
             if (res == null)
-                return NotFound();
+                return NotFound("No Personal File found");
 
             return Ok(res);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SavePersonalFile")]
         public async Task<IActionResult> SavePersonalFile([FromForm] PersonalFileDto model)
         {
@@ -91,17 +95,19 @@ namespace AhmadAPI.Controllers
             return BadRequest(false);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllEmployeeFiles")]
         public async Task<IActionResult> GetAllEmployeeFiles()
         {
             var res = await _service.GetAllEmployeeFiles();
 
             if (res == null)
-                return NotFound();
+                return NotFound("No Employee File found");
 
             return Ok(res);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpPost("SaveEmployeeFiles")]
         public async Task<IActionResult> SaveEmployeeFiles([FromForm] EmployeeFileDto model)
         {

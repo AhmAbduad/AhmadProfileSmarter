@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ChatsController : ControllerBase
@@ -17,7 +17,8 @@ namespace AhmadAPI.Controllers
         {
             _service = service;
         }
-        
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -30,6 +31,7 @@ namespace AhmadAPI.Controllers
             return Ok(users);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpPost("SendChat")]
         public async Task<IActionResult> SendChat([FromBody] ChatsDto chat)
         {
@@ -43,6 +45,7 @@ namespace AhmadAPI.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetMessages")]
         public async Task<IActionResult> GetMessages(int senderId, int receiverId)
         {
@@ -50,6 +53,7 @@ namespace AhmadAPI.Controllers
             return Ok(messages);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpPost("AIresponse")]
         public async Task<IActionResult> AIresponse([FromBody] string chat)
         {

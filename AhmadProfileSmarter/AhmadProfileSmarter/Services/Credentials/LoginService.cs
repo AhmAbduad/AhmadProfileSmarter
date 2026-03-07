@@ -27,24 +27,6 @@ namespace AhmadService.Services.Credentials
 
         public async Task<LoginResponseDto?> ValidateUserCredential(LoginDto login)
         {
-            //return await _loginRepository.ValidateUserCredentials(login.Email,login.Password);
-
-
-            //var user = await _loginRepository
-            //     .ValidateUserCredentials(login.Email, login.Password);
-
-            //if (user == null)
-            //    return null;
-
-            //var token = GenerateJwtToken(user);
-
-            //return new LoginResponseDto
-            //{
-            //    UserId = user.UserId,
-            //    UserName = user.UserName,
-            //    Email = user.Email,
-            //    Token = token
-            //};
 
 
             await _unitOfWork.BeginTransactionAsync();
@@ -85,8 +67,10 @@ namespace AhmadService.Services.Credentials
             {
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.UserName)
-        };
+            new Claim(ClaimTypes.Name, user.UserName),
+
+            new Claim(ClaimTypes.Role, user.Role.RoleName)
+            };
 
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])

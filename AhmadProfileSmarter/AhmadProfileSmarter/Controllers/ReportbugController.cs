@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ReportbugController : ControllerBase
@@ -18,7 +18,8 @@ namespace AhmadAPI.Controllers
         {
             this.reportBugService = reportBugService;
         }
-            
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpPost("SavingReportBug")]
         public async Task<bool> SavingReportBug([FromForm] ReportbugDto reportbugdto)
         {
@@ -33,6 +34,7 @@ namespace AhmadAPI.Controllers
             return check;
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpGet("GetAllBugs")]
         public async Task<IActionResult> GetAllBugs()
         {

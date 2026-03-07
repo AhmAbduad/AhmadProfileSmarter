@@ -19,8 +19,12 @@ namespace AhmadDAL.DataAccessLayer.Credentials
 
         public async Task<User?> ValidateUserCredentials(string email, string password)
         {
+            //var user = await _context.Users
+            //.FirstOrDefaultAsync(u => u.Email == email);
+
             var user = await _context.Users
-         .FirstOrDefaultAsync(u => u.Email == email);
+            .Include(u => u.Role)   // 👈 Role table join ho jae ga
+            .FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
                 return null;

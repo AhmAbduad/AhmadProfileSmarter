@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProfileController : ControllerBase
@@ -18,6 +18,7 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpGet("GetAllNotificationofReciever/{receiverId}")]
         public async Task<IActionResult> GetAllNotificationofReciever(int receiverId)
         {
@@ -31,6 +32,7 @@ namespace AhmadAPI.Controllers
             return Ok(notifications);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpGet("MarkNotificationRead/{id}")]
         public async Task<IActionResult> MarkNotificationRead(int id)
         {
@@ -44,6 +46,7 @@ namespace AhmadAPI.Controllers
             return Ok(read);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
         {

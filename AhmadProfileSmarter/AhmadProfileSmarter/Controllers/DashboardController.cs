@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DashboardController : ControllerBase
@@ -17,6 +17,8 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetAllMeetings")]
         public async Task<IActionResult> GetAllMeetings()
         {
@@ -30,6 +32,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetTotalParticipants")]
         public async Task<IActionResult> GetTotalParticipants()
         {
@@ -38,6 +41,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetActiveParticipants")]
         public async Task<IActionResult> GetActiveParticipants()
         {
@@ -46,6 +50,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetInActiveParticipants")]
         public async Task<IActionResult> GetInActiveParticipants()
         {
@@ -54,6 +59,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetCompletedTasksCount")]
         public async Task<IActionResult> GetCompletedTasksCount()
         {
@@ -62,6 +68,7 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
         [HttpGet("GetActivityforDashboard")]
         public async Task<IActionResult> GetActivityforDashboard()
         {

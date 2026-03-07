@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
@@ -17,7 +17,7 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
-
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees()
         {

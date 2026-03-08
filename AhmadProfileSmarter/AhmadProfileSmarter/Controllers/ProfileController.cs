@@ -1,4 +1,6 @@
-﻿using AhmadService.dto.ChangePassword;
+﻿using AhmadProfileSmarter.dto.Notification;
+using AhmadProfileSmarter.Models.Roles;
+using AhmadService.dto.ChangePassword;
 using AhmadService.Services.Employees;
 using AhmadService.Services.Profile;
 using Microsoft.AspNetCore.Authorization;
@@ -57,5 +59,35 @@ namespace AhmadAPI.Controllers
 
             return Ok("Password changed successfully");
         }
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
+        [HttpGet("FetchRoles")]
+        public async Task<IActionResult> FetchRoles()
+        {
+            var result = await _service.FetchRoles();
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
+        [HttpPost("CreateNotification")]
+        public async Task<IActionResult> CreateNotification(NotificationDto dto)
+        {
+            var result = await _service.CreateNotification(dto);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AhmadDAL.Data;
 using AhmadDAL.Models.Credentials;
 using AhmadDAL.Models.Notifications;
+using AhmadProfileSmarter.dto.Notification;
 using AhmadProfileSmarter.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,44 @@ namespace AhmadDAL.DataAccessLayer.Profile
             }
             catch (Exception)
             {
+                return false;
+            }
+        }
+
+        public async Task<List<AhmadProfileSmarter.Models.Roles.Roles>> FetchRoles()
+        {
+            return await _context.Roles.ToListAsync();
+        }
+
+        public async Task<bool> CreateNotification(NotificationDto dto)
+        {
+            try
+            {
+                // 1️⃣ Create a new Notification entity
+                var notification = new Notifications
+                {
+                    Title = dto.title,
+                    Message = dto.message,
+                    NotificationType = dto.notificationType,
+                    SenderId = dto.senderId,
+                    ReceiverId = dto.receiverId,
+                    IsRead = false,
+                    CreatedAt = DateTime.Now,
+                    IsDeleted = false
+                };
+
+                // 2️⃣ Add to DbContext
+                _context.Notifications.Add(notification);
+
+                // 3️⃣ Save changes to database
+                //await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log exception if needed
+                Console.WriteLine($"Error creating notification: {ex.Message}");
                 return false;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using AhmadDAL.Models.Notifications;
+using AhmadProfileSmarter.dto.Notification;
 
 namespace AhmadProfileSmarter.Interfaces
 {
@@ -10,6 +11,8 @@ namespace AhmadProfileSmarter.Interfaces
 
         Task<bool> ChangePassword(int userid, string pass);
 
+        Task<List<AhmadProfileSmarter.Models.Roles.Roles>> FetchRoles();
 
+        Task<bool> CreateNotification(NotificationDto dto);
     }
 }

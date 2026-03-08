@@ -1,4 +1,5 @@
-﻿using AhmadDAL.Models.AdminRequests;
+﻿//using AhmadDAL.Models.AdminRequests;
+using AhmadProfileSmarter.dto.ChangeRole;
 using AhmadService.dto.AdminRequests;
 using AhmadService.Services.AdminRequests;
 using AhmadService.Services.Dashboard;
@@ -22,13 +23,57 @@ namespace AhmadAPI.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "SuperAdmin")]
-        [HttpPost("CreateRequest")]
-        public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto dto)
-        {
+        //[Authorize(Roles = "SuperAdmin")]
+        //[HttpPost("CreateRequest")]
+        //public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto dto)
+        //{
             
 
-            var result = await _service.CreateRequest(dto);
+        //    var result = await _service.CreateRequest(dto);
+
+        //    if(result==null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(result);
+        //}
+
+        //[Authorize(Roles = "SuperAdmin")]
+        //[HttpGet("GetAdminRequestonID/{id}")]
+        //public async Task<IActionResult> GetAdminRequestonID(int id)
+        //{
+        //    var result = await _service.GetAdminRequestonID(id);
+
+        //    if(result==null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(result);
+        //}
+            
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet("FetchUsers")]
+        public async Task<IActionResult> FetchUsers()
+        {
+            var result = await _service.FetchUsers();
+
+            if(result==null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet("FetchRoles")]
+        public async Task<IActionResult> FetchRoles()
+        {
+            var result = await _service.FetchRoles();
 
             if(result==null)
             {
@@ -39,17 +84,18 @@ namespace AhmadAPI.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        [HttpGet("GetAdminRequestonID/{id}")]
-        public async Task<IActionResult> GetAdminRequestonID(int id)
+        [HttpPut("ChangeRole/{userId}")]
+        public async Task<IActionResult> ChangeRole(int userId, ChangeRoleDto dto)
         {
-            var result = await _service.GetAdminRequestonID(id);
+            var user = await _service.ChangeRole(userId, dto);
 
-            if(result==null)
+            if (user == null)
             {
                 return NotFound();
             }
+            
 
-            return Ok(result);
+            return Ok(user);
         }
     }
 }

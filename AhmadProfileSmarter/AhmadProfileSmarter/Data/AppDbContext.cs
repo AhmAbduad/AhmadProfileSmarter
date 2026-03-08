@@ -1,6 +1,6 @@
 ﻿using AhmadDAL.Models.Account;
 using AhmadDAL.Models.Activity;
-using AhmadDAL.Models.AdminRequests;
+//using AhmadDAL.Models.AdminRequests;
 using AhmadDAL.Models.AIChatMessage;
 using AhmadDAL.Models.Attachment;
 using AhmadDAL.Models.Chats;
@@ -63,7 +63,7 @@ namespace AhmadDAL.Data
 
         public DbSet<AIChatMessage> AIChatMessages { get; set; }
 
-        public DbSet<AdminRequests> AdminRequests { get; set; }
+        //public DbSet<AdminRequests> AdminRequests { get; set; }
 
         public DbSet<Roles> Roles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -158,11 +158,11 @@ namespace AhmadDAL.Data
                 .HasForeignKey(mp => mp.UserID)
                 .OnDelete(DeleteBehavior.NoAction);
                 
-            modelBuilder.Entity<AdminRequests>()
-                .HasOne(mp=>mp.User)
-                .WithMany(u=>u.AdminRequests)
-                .HasForeignKey(mp=>mp.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<AdminRequests>()
+            //    .HasOne(mp=>mp.User)
+            //    .WithMany(u=>u.AdminRequests)
+            //    .HasForeignKey(mp=>mp.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Reportbug>()
                 .HasOne(mp => mp.User)

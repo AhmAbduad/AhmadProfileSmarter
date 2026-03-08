@@ -1,5 +1,5 @@
 ﻿using AhmadDAL.DataAccessLayer.AdminRequests;
-using AhmadDAL.Models.AdminRequests;
+//using AhmadDAL.Models.AdminRequests;
 using AhmadDAL.Models.Chats;
 using AhmadDAL.Models.Employees;
 using AhmadDAL.Models.Meetings;
@@ -52,13 +52,13 @@ namespace AhmadDAL.Models.Credentials
 
         public ICollection<MeetingParticipants> MeetingPart { get; set; } = new List<MeetingParticipants>();
 
-        public ICollection<AhmadDAL.Models.AdminRequests.AdminRequests> AdminRequests { get; set; } = new List<AhmadDAL.Models.AdminRequests.AdminRequests>();
+        //public ICollection<AhmadDAL.Models.AdminRequests.AdminRequests> AdminRequests { get; set; } = new List<AhmadDAL.Models.AdminRequests.AdminRequests>();
 
         public ICollection<AhmadDAL.Models.Reportbug.Reportbug> Reportbug { get; set; } = new List<AhmadDAL.Models.Reportbug.Reportbug>();
 
 
         [ForeignKey(nameof(RoleID))]
-        public Roles Role { get; set; } = null!;
+        public Roles? Role { get; set; } 
 
         
     }

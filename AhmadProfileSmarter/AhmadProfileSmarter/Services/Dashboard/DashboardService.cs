@@ -2,6 +2,7 @@
 using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.Models.Activity;
 using AhmadDAL.Models.Meetings;
+using AhmadDAL.Models.Tasks;
 using AhmadProfileSmarter.Interfaces;
 using AhmadProfileSmarter.UnitofWork;
 
@@ -143,7 +144,27 @@ namespace AhmadService.Services.Dashboard
             }
         }
 
+        public async Task<List<AhmadDAL.Models.Tasks.Tasks>>   GetAllTasks()
+        {
+            await _unitOfWork.BeginTransactionAsync(); // 🔹 Start transaction
 
-        
+            try
+            {
+                // 🔹 Call repository via UnitOfWork
+                var activities = await _unitOfWork.Dashboard.GetAllTasks();
+
+                // 🔹 Commit transaction (optional for read, but for consistency)
+                await _unitOfWork.CommitTransactionAsync();
+
+                return activities;
+            }
+            catch
+            {
+                // 🔹 Rollback if anything goes wrong
+                await _unitOfWork.RollbackTransactionAsync();
+                throw;
+            }
+        }
+
     }
 }

@@ -50,5 +50,10 @@ namespace AhmadDAL.DataAccessLayer.Dashboard
         {
             return await _context.Activities.ToListAsync();
         }
+
+        public async Task<List<AhmadDAL.Models.Tasks.Tasks>> GetAllTasks()
+        {
+            return await _context.Tasks.ToListAsync();
+        }
     }
 }

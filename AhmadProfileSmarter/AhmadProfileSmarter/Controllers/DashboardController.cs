@@ -77,5 +77,13 @@ namespace AhmadAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator,User,Guest")]
+        [HttpGet("GetAllTasks")]
+        public async Task<IActionResult> GetAllTasks()
+        {
+            var result = await _service.GetAllTasks();
+
+            return Ok(result);
+        }
     }
 }

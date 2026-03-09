@@ -17,5 +17,6 @@ namespace AhmadProfileSmarter.Interfaces
 
         Task<List<Activity>> GetActivityforDashboard();
 
+        Task<List<AhmadDAL.Models.Tasks.Tasks>> GetAllTasks();
     }
 }

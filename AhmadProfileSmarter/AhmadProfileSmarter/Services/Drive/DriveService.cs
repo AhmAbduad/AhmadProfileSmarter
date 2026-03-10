@@ -1,9 +1,15 @@
 ﻿using AhmadDAL.DataAccessLayer.Drive;
 using AhmadDAL.DataAccessLayer.Employees;
+using AhmadDAL.Models.Credentials;
+using AhmadDAL.Models.EmployeeFiles;
+using AhmadDAL.Models.ParticipantFiles;
 using AhmadDAL.Models.Participants;
+using AhmadDAL.Models.PersonalFiles;
 using AhmadProfileSmarter.Interfaces;
 using AhmadProfileSmarter.UnitofWork;
 using AhmadService.dto.ParticipantFile;
+using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 
 namespace AhmadService.Services.Drive
 {
@@ -17,7 +23,7 @@ namespace AhmadService.Services.Drive
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<AhmadDAL.Models.ParticipantFiles.ParticipantFiles>> GetAllParticipantsFiles()
+        public async Task<List<AhmadDAL.Models.ParticipantFiles.ParticipantFiles>> GetAllParticipantsFiles(int id)
         {
             // 🔹 Start transaction (optional for read, but consistent)
             await _unitOfWork.BeginTransactionAsync();
@@ -25,7 +31,7 @@ namespace AhmadService.Services.Drive
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var files = await _unitOfWork.Drive.GetAllParticipantsFiles();
+                var files = await _unitOfWork.Drive.GetAllParticipantsFiles(id);
 
                 // 🔹 Commit transaction (even for read)
                 await _unitOfWork.CommitTransactionAsync();
@@ -44,14 +50,17 @@ namespace AhmadService.Services.Drive
              string fileName,
              byte[] fileBytes,
              string size,
-             DateTime uploadDate)
+             DateTime uploadDate,
+             int userID,
+             string ContentType
+             )
         {
             await _unitOfWork.BeginTransactionAsync();
 
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var result = await _unitOfWork.Drive.SaveParticipantFile(fileName, fileBytes, size, uploadDate);
+                var result = await _unitOfWork.Drive.SaveParticipantFile(fileName, fileBytes, size, uploadDate, userID, ContentType);
 
                 // 🔹 Save changes
                 await _unitOfWork.SaveChangesAsync();
@@ -69,7 +78,7 @@ namespace AhmadService.Services.Drive
             }
         }
 
-        public async Task<List<AhmadDAL.Models.PersonalFiles.PersonalFiles>> GetAllPersonalFiles()
+        public async Task<List<AhmadDAL.Models.PersonalFiles.PersonalFiles>> GetAllPersonalFiles(int id)
         {
             // 🔹 Begin transaction (optional for read, but consistent)
             await _unitOfWork.BeginTransactionAsync();
@@ -77,7 +86,7 @@ namespace AhmadService.Services.Drive
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var files = await _unitOfWork.Drive.GetAllPersonalFiles();
+                var files = await _unitOfWork.Drive.GetAllPersonalFiles(id);
 
                 // 🔹 Save changes if any (optional for read)
                 await _unitOfWork.SaveChangesAsync();
@@ -99,14 +108,16 @@ namespace AhmadService.Services.Drive
            string fileName,
            byte[] fileBytes,
            string size,
-           DateTime uploadDate)
+           DateTime uploadDate,
+           int userID,
+           string ContentType)
         {
             await _unitOfWork.BeginTransactionAsync(); // 🔹 Start transaction
 
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var result = await _unitOfWork.Drive.SavePersonalFile(fileName, fileBytes, size, uploadDate);
+                var result = await _unitOfWork.Drive.SavePersonalFile(fileName, fileBytes, size, uploadDate, userID, ContentType);
 
                 // 🔹 Save changes
                 await _unitOfWork.SaveChangesAsync();
@@ -124,7 +135,7 @@ namespace AhmadService.Services.Drive
             }
         }
 
-        public async Task<List<AhmadDAL.Models.EmployeeFiles.EmployeeFiles>> GetAllEmployeeFiles()
+        public async Task<List<AhmadDAL.Models.EmployeeFiles.EmployeeFiles>> GetAllEmployeeFiles(int id)
         {
             // 🔹 Begin transaction (optional for read, but consistent)
             await _unitOfWork.BeginTransactionAsync();
@@ -132,7 +143,7 @@ namespace AhmadService.Services.Drive
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var files = await _unitOfWork.Drive.GetAllEmployeeFiles();
+                var files = await _unitOfWork.Drive.GetAllEmployeeFiles(id);
 
                 // 🔹 Commit transaction
                 await _unitOfWork.CommitTransactionAsync();
@@ -151,7 +162,9 @@ namespace AhmadService.Services.Drive
          string fileName,
          byte[] fileBytes,
          string size,
-         DateTime uploadDate)
+         DateTime uploadDate,
+         int userID,
+         string ContentType)
         {
             // 🔹 Start transaction
             await _unitOfWork.BeginTransactionAsync();
@@ -159,7 +172,7 @@ namespace AhmadService.Services.Drive
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var result = await _unitOfWork.Drive.SaveEmployeeFiles(fileName, fileBytes, size, uploadDate);
+                var result = await _unitOfWork.Drive.SaveEmployeeFiles(fileName, fileBytes, size, uploadDate, userID, ContentType);
 
                 // 🔹 Save changes
                 await _unitOfWork.SaveChangesAsync();
@@ -176,6 +189,84 @@ namespace AhmadService.Services.Drive
                 throw; // bubble up exception
             }
         }
-        
+
+
+        public async Task<ParticipantFiles?> DownloadParticipantFile(int id)
+        {
+            // 🔹 Start transaction
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // 🔹 Call repository via UnitOfWork
+                var result = await _unitOfWork.Drive.DownloadParticipantFile(id);
+
+                // 🔹 Save changes
+                await _unitOfWork.SaveChangesAsync();
+
+                // 🔹 Commit transaction
+                await _unitOfWork.CommitTransactionAsync();
+
+                return result;
+            }
+            catch
+            {
+                // 🔹 Rollback on error
+                await _unitOfWork.RollbackTransactionAsync();
+                throw; // bubble up exception
+            }
+        }
+
+        public async Task<PersonalFiles?> DownloadPersonalFile(int id)
+        {
+            // 🔹 Start transaction
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // 🔹 Call repository via UnitOfWork
+                var result = await _unitOfWork.Drive.DownloadPersonalFile(id);
+
+                // 🔹 Save changes
+                await _unitOfWork.SaveChangesAsync();
+
+                // 🔹 Commit transaction
+                await _unitOfWork.CommitTransactionAsync();
+
+                return result;
+            }
+            catch
+            {
+                // 🔹 Rollback on error
+                await _unitOfWork.RollbackTransactionAsync();
+                throw; // bubble up exception
+            }
+        }
+
+        public async Task<EmployeeFiles?> DownloadEmployeeFile(int id)
+        {
+            // 🔹 Start transaction
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // 🔹 Call repository via UnitOfWork
+                var result = await _unitOfWork.Drive.DownloadEmployeeFile(id);
+
+                // 🔹 Save changes
+                await _unitOfWork.SaveChangesAsync();
+
+                // 🔹 Commit transaction
+                await _unitOfWork.CommitTransactionAsync();
+
+                return result;
+            }
+            catch
+            {
+                // 🔹 Rollback on error
+                await _unitOfWork.RollbackTransactionAsync();
+                throw; // bubble up exception
+            }
+        }
     }
 }

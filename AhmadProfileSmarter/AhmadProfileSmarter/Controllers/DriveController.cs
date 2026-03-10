@@ -23,9 +23,9 @@ namespace AhmadAPI.Controllers
 
         [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllParticipantsFiles")]
-        public async Task<IActionResult> GetAllParticipantsFiles()
+        public async Task<IActionResult> GetAllParticipantsFiles(int userId)
         {
-            var res = await _service.GetAllParticipantsFiles();
+            var res = await _service.GetAllParticipantsFiles(userId);
 
             if(res == null)
                 return NotFound("No Participant Files found");
@@ -49,7 +49,9 @@ namespace AhmadAPI.Controllers
                 model.File.FileName,
                 fileBytes,
                 model.File.Length.ToString(),
-                DateTime.Now
+                DateTime.Now,
+                model.UserID,
+                model.File.ContentType
             );
 
             if (result)
@@ -60,9 +62,9 @@ namespace AhmadAPI.Controllers
 
         [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllPersonalFiles")]
-        public async Task<IActionResult> GetAllPersonalFiles()
+        public async Task<IActionResult> GetAllPersonalFiles(int userId)
         {
-            var res = await _service.GetAllPersonalFiles();
+            var res = await _service.GetAllPersonalFiles(userId);
 
             if (res == null)
                 return NotFound("No Personal File found");
@@ -86,7 +88,9 @@ namespace AhmadAPI.Controllers
                 model.File.FileName,
                 fileBytes,
                 model.File.Length.ToString(),
-                DateTime.Now
+                DateTime.Now,
+                model.UserID,
+                model.File.ContentType
             );
 
             if (result)
@@ -97,9 +101,9 @@ namespace AhmadAPI.Controllers
 
         [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllEmployeeFiles")]
-        public async Task<IActionResult> GetAllEmployeeFiles()
+        public async Task<IActionResult> GetAllEmployeeFiles(int userId)
         {
-            var res = await _service.GetAllEmployeeFiles();
+            var res = await _service.GetAllEmployeeFiles(userId);
 
             if (res == null)
                 return NotFound("No Employee File found");
@@ -123,7 +127,9 @@ namespace AhmadAPI.Controllers
                 model.File.FileName,
                 fileBytes,
                 model.File.Length.ToString(),
-                DateTime.Now
+                DateTime.Now,
+                model.UserID,
+                model.File.ContentType
             );
 
             if (result)
@@ -131,5 +137,56 @@ namespace AhmadAPI.Controllers
 
             return BadRequest(false);
         }
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
+        [HttpGet("DownloadParticipantFile/{id}")]
+        public async Task<IActionResult> DownloadParticipantFile(int id)
+        {
+            var attachment = await _service.DownloadParticipantFile(id);
+
+            if (attachment == null || attachment.ActualFile == null)
+                return NotFound();
+
+            return File(
+                attachment.ActualFile,
+                attachment.ContentType ?? "application/octet-stream",
+                attachment.ActualFileName
+            );
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
+        [HttpGet("DownloadPersonalFile/{id}")]
+        public async Task<IActionResult> DownloadPersonalFile(int id)
+        {
+            var attachment = await _service.DownloadPersonalFile(id);
+
+            if (attachment == null || attachment.ActualFile == null)
+                return NotFound();
+
+            return File(
+                attachment.ActualFile,
+                attachment.ContentType ?? "application/octet-stream",
+                attachment.ActualFileName
+            );
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
+        [HttpGet("DownloadEmployeeFile/{id}")]
+        public async Task<IActionResult> DownloadEmployeeFile(int id)
+        {
+            var attachment = await _service.DownloadEmployeeFile(id);
+
+            if (attachment == null || attachment.ActualFile == null)
+                return NotFound();
+
+            return File(
+                attachment.ActualFile,
+                attachment.ContentType ?? "application/octet-stream",
+                attachment.ActualFileName
+            );
+        }
+
     }
 }

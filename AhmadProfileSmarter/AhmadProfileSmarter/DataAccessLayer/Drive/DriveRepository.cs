@@ -17,23 +17,29 @@ namespace AhmadDAL.DataAccessLayer.Drive
             _context = context;
         }
 
-        public async Task<List<ParticipantFiles>> GetAllParticipantsFiles()
+        public async Task<List<ParticipantFiles>> GetAllParticipantsFiles(int id)
         {
-            return await _context.ParticipantFiles.ToListAsync();
+            //return await _context.ParticipantFiles.ToListAsync();
+
+            return await _context.ParticipantFiles
+                .Where(x => x.UserID == id)
+                .ToListAsync();
         }
 
         public async Task<bool> SaveParticipantFile(
              string ActualFileName,
              byte[] ActualFile,
              string Size,
-             DateTime UploadDate)
+             DateTime UploadDate, int userID, string ContentType)
         {
             var file = new ParticipantFiles
             {
                 ActualFileName = ActualFileName,
                 ActualFile = ActualFile,
                 Size = Size,
-                UploadDate = UploadDate
+                UploadDate = UploadDate,
+                UserID = userID,
+                ContentType = ContentType
             };
 
             await _context.ParticipantFiles.AddAsync(file);
@@ -42,23 +48,25 @@ namespace AhmadDAL.DataAccessLayer.Drive
             return true;
         }
 
-        public async Task<List<PersonalFiles>> GetAllPersonalFiles()
+        public async Task<List<PersonalFiles>> GetAllPersonalFiles(int id)
         {
-            return await _context.PersonalFiles.ToListAsync();
+            return await _context.PersonalFiles.Where(x => x.UserID == id).ToListAsync();
         }
 
         public async Task<bool> SavePersonalFile(
            string ActualFileName,
            byte[] ActualFile,
            string Size,
-           DateTime UploadDate)
+           DateTime UploadDate, int userID, string ContentType)
         {
             var file = new PersonalFiles
             {
                 ActualFileName = ActualFileName,
                 ActualFile = ActualFile,
                 Size = Size,
-                UploadDate = UploadDate
+                UploadDate = UploadDate,
+                UserID = userID,
+                ContentType = ContentType
             };
 
             await _context.PersonalFiles.AddAsync(file);
@@ -68,28 +76,49 @@ namespace AhmadDAL.DataAccessLayer.Drive
         }
 
 
-        public async Task<List<EmployeeFiles>> GetAllEmployeeFiles()
+        public async Task<List<EmployeeFiles>> GetAllEmployeeFiles(int id)
         {
-            return await _context.EmployeeFiles.ToListAsync();
+            return await _context.EmployeeFiles.Where(x => x.UserID == id).ToListAsync();
         }
 
         public async Task<bool> SaveEmployeeFiles(
           string ActualFileName,
           byte[] ActualFile,
           string Size,
-          DateTime UploadDate)
+          DateTime UploadDate, int userID, string ContentType)
         {
             var file = new EmployeeFiles
             {
                 ActualFileName = ActualFileName,
                 ActualFile = ActualFile,
                 Size = Size,
-                UploadDate = UploadDate
+                UploadDate = UploadDate,
+                UserID = userID,
+                ContentType = ContentType
             };
 
             await _context.EmployeeFiles.AddAsync(file);
             //return await _context.SaveChangesAsync() > 0;
             return true;
+        }
+
+
+        public async Task<ParticipantFiles?> DownloadParticipantFile(int id)
+        {
+            return await _context.Set<ParticipantFiles>()
+                .FirstOrDefaultAsync(a => a.ParticipantFilesID == id);
+        }
+
+        public async Task<PersonalFiles?> DownloadPersonalFile(int id)
+        {
+            return await _context.Set<PersonalFiles>()
+                .FirstOrDefaultAsync(a => a.PersonalFilesID == id);
+        }
+
+        public async Task<EmployeeFiles?> DownloadEmployeeFile(int id)
+        {
+            return await _context.Set<EmployeeFiles>()
+                .FirstOrDefaultAsync(a => a.EmployeeFilesID == id);
         }
     }
 }

@@ -57,6 +57,13 @@ namespace AhmadDAL.Models.Credentials
         public ICollection<AhmadDAL.Models.Reportbug.Reportbug> Reportbug { get; set; } = new List<AhmadDAL.Models.Reportbug.Reportbug>();
 
 
+        public ICollection<AhmadDAL.Models.ParticipantFiles.ParticipantFiles> ParticipantFiles { get; set; } = new List<AhmadDAL.Models.ParticipantFiles.ParticipantFiles>();
+
+        public ICollection<AhmadDAL.Models.PersonalFiles.PersonalFiles> PersonalFiles { get; set; } = new List<AhmadDAL.Models.PersonalFiles.PersonalFiles>();
+
+        public ICollection<AhmadDAL.Models.EmployeeFiles.EmployeeFiles> EmployeeFiles { get; set; } = new List<AhmadDAL.Models.EmployeeFiles.EmployeeFiles>();
+
+
         [ForeignKey(nameof(RoleID))]
         public Roles? Role { get; set; } 
 

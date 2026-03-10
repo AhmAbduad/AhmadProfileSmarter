@@ -176,6 +176,26 @@ namespace AhmadDAL.Data
                 .HasForeignKey(mp => mp.RoleID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+            modelBuilder.Entity<ParticipantFiles>()
+                .HasOne(mp=>mp.User)
+                .WithMany(u=>u.ParticipantFiles)
+                .HasForeignKey(mp=>mp.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PersonalFiles>()
+                .HasOne(mp=>mp.User)
+                .WithMany(u=>u.PersonalFiles)
+                .HasForeignKey(mp=>mp.UserID) 
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<EmployeeFiles>()
+                .HasOne(mp=>mp.User)
+                .WithMany(u=>u.EmployeeFiles)
+                .HasForeignKey(mp=>mp.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

@@ -9,5 +9,8 @@
         public string? Size { get; set; }
 
         public DateTime? UploadDate { get; set; }
+
+        public int UserID { get; set; }
     }
+
 }

@@ -147,9 +147,13 @@ namespace AhmadAPI.Controllers
             if (attachment == null || attachment.ActualFile == null)
                 return NotFound();
 
+            var contentType = string.IsNullOrWhiteSpace(attachment.ContentType)
+                ? "application/octet-stream"
+                : attachment.ContentType;
+
             return File(
                 attachment.ActualFile,
-                attachment.ContentType ?? "application/octet-stream",
+                contentType,
                 attachment.ActualFileName
             );
         }
@@ -164,9 +168,13 @@ namespace AhmadAPI.Controllers
             if (attachment == null || attachment.ActualFile == null)
                 return NotFound();
 
+             var contentType = string.IsNullOrWhiteSpace(attachment.ContentType)
+              ? "application/octet-stream"
+              : attachment.ContentType;
+
             return File(
                 attachment.ActualFile,
-                attachment.ContentType ?? "application/octet-stream",
+                contentType,
                 attachment.ActualFileName
             );
         }
@@ -181,9 +189,13 @@ namespace AhmadAPI.Controllers
             if (attachment == null || attachment.ActualFile == null)
                 return NotFound();
 
+            var contentType = string.IsNullOrWhiteSpace(attachment.ContentType)
+                ? "application/octet-stream"
+                : attachment.ContentType;
+
             return File(
                 attachment.ActualFile,
-                attachment.ContentType ?? "application/octet-stream",
+                contentType,
                 attachment.ActualFileName
             );
         }

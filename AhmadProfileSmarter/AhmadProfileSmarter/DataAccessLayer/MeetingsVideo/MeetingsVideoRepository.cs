@@ -36,7 +36,8 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
             };
 
             _context.Meetings.Add(newMeeting);
-           
+
+            await _context.SaveChangesAsync();
 
             // Add participants
             foreach (var userId in users)
@@ -50,6 +51,8 @@ namespace AhmadDAL.DataAccessLayer.MeetingsVideo
                 };
                 _context.MeetingParticipants.Add(participant);
             }
+
+
 
             return newMeeting;
         }

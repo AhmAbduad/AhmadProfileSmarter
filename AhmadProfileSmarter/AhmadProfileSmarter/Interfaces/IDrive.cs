@@ -7,7 +7,7 @@ namespace AhmadProfileSmarter.Interfaces
 {
     public interface IDrive
     {
-        Task<List<ParticipantFiles>> GetAllParticipantsFiles(int id);
+        Task<List<ParticipantFiles>> GetAllParticipantsFiles();
 
         Task<bool> SaveParticipantFile(string ActualFileName, byte[] ActualFile, string Size, DateTime UploadDate,int userID, string ContentType);
 

@@ -17,12 +17,12 @@ namespace AhmadDAL.DataAccessLayer.Drive
             _context = context;
         }
 
-        public async Task<List<ParticipantFiles>> GetAllParticipantsFiles(int id)
+        public async Task<List<ParticipantFiles>> GetAllParticipantsFiles()
         {
             //return await _context.ParticipantFiles.ToListAsync();
 
             return await _context.ParticipantFiles
-                .Where(x => x.UserID == id)
+                //.Where(x => x.UserID == id)
                 .ToListAsync();
         }
 

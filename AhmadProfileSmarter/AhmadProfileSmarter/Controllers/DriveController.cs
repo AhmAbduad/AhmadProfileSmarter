@@ -23,9 +23,9 @@ namespace AhmadAPI.Controllers
 
         [Authorize(Roles = "SuperAdmin,Admin,Moderator")]
         [HttpGet("GetAllParticipantsFiles")]
-        public async Task<IActionResult> GetAllParticipantsFiles(int userId)
+        public async Task<IActionResult> GetAllParticipantsFiles()
         {
-            var res = await _service.GetAllParticipantsFiles(userId);
+            var res = await _service.GetAllParticipantsFiles();
 
             if(res == null)
                 return NotFound("No Participant Files found");

@@ -23,7 +23,7 @@ namespace AhmadService.Services.Drive
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<AhmadDAL.Models.ParticipantFiles.ParticipantFiles>> GetAllParticipantsFiles(int id)
+        public async Task<List<AhmadDAL.Models.ParticipantFiles.ParticipantFiles>> GetAllParticipantsFiles()
         {
             // 🔹 Start transaction (optional for read, but consistent)
             await _unitOfWork.BeginTransactionAsync();
@@ -31,7 +31,7 @@ namespace AhmadService.Services.Drive
             try
             {
                 // 🔹 Call repository via UnitOfWork
-                var files = await _unitOfWork.Drive.GetAllParticipantsFiles(id);
+                var files = await _unitOfWork.Drive.GetAllParticipantsFiles();
 
                 // 🔹 Commit transaction (even for read)
                 await _unitOfWork.CommitTransactionAsync();

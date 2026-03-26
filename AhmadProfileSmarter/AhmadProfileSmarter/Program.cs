@@ -11,6 +11,7 @@ using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.DataAccessLayer.Tasks;
 using AhmadProfileSmarter.DataAccessLayer.CollaboratedFiles;
+using AhmadProfileSmarter.Hubs;
 using AhmadProfileSmarter.Interfaces;
 using AhmadProfileSmarter.Middleware;
 using AhmadProfileSmarter.Services.CollaboratedFiles;
@@ -34,6 +35,10 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddSignalR();
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -134,7 +139,8 @@ builder.Services.AddCors(options =>
                 "https://ahmadabdullahprofile.netlify.app"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod());
+            .AllowAnyMethod()
+            .AllowCredentials());
 });
 
 var app = builder.Build();
@@ -158,9 +164,11 @@ app.UseCors("AllowReact");
 app.UseAuthentication();
 
 
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+app.MapHub<EditorHub>("/editorHub");
 
 app.Run();

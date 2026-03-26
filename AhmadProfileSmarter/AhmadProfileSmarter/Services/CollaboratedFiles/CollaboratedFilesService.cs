@@ -1,5 +1,6 @@
 ﻿using AhmadDAL.Models.Meetings;
 using AhmadDAL.Models.ParticipantFiles;
+using AhmadProfileSmarter.dto.CollaboratedFile;
 using AhmadProfileSmarter.UnitofWork;
 
 namespace AhmadProfileSmarter.Services.CollaboratedFiles
@@ -19,10 +20,32 @@ namespace AhmadProfileSmarter.Services.CollaboratedFiles
 
             try
             {
-                var meetings = await _unitOfWork.CollaboratedFiles.GetFilesDocx();
+                var participantFiles = await _unitOfWork.CollaboratedFiles.GetFilesDocx();
 
                 await _unitOfWork.CommitTransactionAsync();
-                return meetings;
+                return participantFiles;
+            }
+            catch
+            {
+                await _unitOfWork.RollbackTransactionAsync();
+                throw;
+            }
+        }
+
+        public async Task<ParticipantFiles> UpdateFileDoc(CollaboratedFilesDto dto)
+        {
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                var participantFiles = await _unitOfWork.CollaboratedFiles.UpdateFileDoc(dto.participantFilesID, dto.content);
+
+                // Save changes
+                await _unitOfWork.SaveChangesAsync();
+
+
+                await _unitOfWork.CommitTransactionAsync();
+                return participantFiles;
             }
             catch
             {

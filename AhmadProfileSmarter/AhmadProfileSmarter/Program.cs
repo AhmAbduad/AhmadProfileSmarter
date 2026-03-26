@@ -10,8 +10,10 @@ using AhmadDAL.DataAccessLayer.Profile;
 using AhmadDAL.DataAccessLayer.Register;
 using AhmadDAL.DataAccessLayer.ReportBug;
 using AhmadDAL.DataAccessLayer.Tasks;
+using AhmadProfileSmarter.DataAccessLayer.CollaboratedFiles;
 using AhmadProfileSmarter.Interfaces;
 using AhmadProfileSmarter.Middleware;
+using AhmadProfileSmarter.Services.CollaboratedFiles;
 using AhmadProfileSmarter.UnitofWork;
 using AhmadService.Services.AdminRequests;
 using AhmadService.Services.Chats;
@@ -64,6 +66,9 @@ builder.Services.AddScoped<IDashboard,DashboardRepository>();
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<IAdminRequests,AdminRequestsRepository>();
 builder.Services.AddScoped<AdminRequestsService>();
+builder.Services.AddScoped<ICollaboratedFiles, CollaboratedFilesRepository>();
+builder.Services.AddScoped<CollaboratedFilesService>();
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

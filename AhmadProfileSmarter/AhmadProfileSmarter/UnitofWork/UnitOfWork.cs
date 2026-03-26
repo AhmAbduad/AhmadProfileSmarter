@@ -31,6 +31,8 @@ namespace AhmadProfileSmarter.UnitofWork
         public IRegister Register { get; }
         public IReportBug ReportBug { get; }
         public ITasks Tasks { get; }
+        public ICollaboratedFiles CollaboratedFiles { get; }
+
 
         //public UnitOfWork(AppDbContext context)
         //{
@@ -62,7 +64,8 @@ namespace AhmadProfileSmarter.UnitofWork
                         IProfile profile,
                         IRegister register,
                         IReportBug reportBug,
-                        ITasks tasks)
+                        ITasks tasks,
+                        ICollaboratedFiles collaboratedFiles)
             {
                 _context = context;
 
@@ -77,6 +80,7 @@ namespace AhmadProfileSmarter.UnitofWork
                 Register = register;
                 ReportBug = reportBug;
                 Tasks = tasks;
+                CollaboratedFiles = collaboratedFiles;
             }
 
 

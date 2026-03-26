@@ -15,6 +15,7 @@ namespace AhmadProfileSmarter.UnitofWork
         IRegister Register { get; }
         IReportBug ReportBug { get; }
         ITasks Tasks { get; }
+        ICollaboratedFiles CollaboratedFiles { get; }
 
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();

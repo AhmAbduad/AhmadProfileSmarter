@@ -26,23 +26,36 @@ namespace AhmadDAL.DataAccessLayer.Register
             if (await _context.Users.AnyAsync(u => u.Email == Email))
                 return false;
 
-            var hasher = new PasswordHasher<User>();
+
 
             var newUser = new User
             {
                 UserName = UserName,
                 Email = Email,
-                RoleID=4
+                PasswordHash = Password,  // ❌ Storing plain text password!
+                RoleID = 4
             };
 
-            // 🔐 Hash password
-            newUser.PasswordHash = hasher.HashPassword(newUser, Password);
-
-            // 🔹 Save to database
             await _context.Users.AddAsync(newUser);
-            //await _context.SaveChangesAsync();
 
             return true;
+            //var hasher = new PasswordHasher<User>();
+
+            //var newUser = new User
+            //{
+            //    UserName = UserName,
+            //    Email = Email,
+            //    RoleID=4
+            //};
+
+            // 🔐 Hash password
+            // newUser.PasswordHash = hasher.HashPassword(newUser, Password);
+
+            // 🔹 Save to database
+            //await _context.Users.AddAsync(newUser);
+            ////await _context.SaveChangesAsync();
+
+            //return true;
         }
     }
 }

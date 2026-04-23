@@ -143,6 +143,9 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
+
+builder.WebHost.UseUrls("http://0.0.0.0:5001");
+
 var app = builder.Build();
 
 

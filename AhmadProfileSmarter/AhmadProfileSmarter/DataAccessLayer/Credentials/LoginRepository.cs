@@ -29,16 +29,20 @@ namespace AhmadDAL.DataAccessLayer.Credentials
             if (user == null)
                 return null;
 
-            var hasher = new PasswordHasher<User>();
+            if(user.PasswordHash != password) return null;
 
-            var result = hasher.VerifyHashedPassword(
-                user,
-                user.PasswordHash,
-                password
-            );
+            //var hasher = new PasswordHasher<User>();
 
-            if (result == PasswordVerificationResult.Failed)
-                return null;
+            //var result = hasher.VerifyHashedPassword(
+            //    user,
+            //    user.PasswordHash,
+            //    password
+            //);
+
+            //if (result == PasswordVerificationResult.Failed)
+            //    return null;
+
+
 
             return user;
         }
